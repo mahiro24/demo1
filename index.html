@@ -33,6 +33,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
 <script>
  var a=0;
+ var aa=0;
  var b=0;
  var c=0;
 // ビデオ
@@ -48,7 +49,9 @@ var src_ctx2;
 var taMessage2;
  
 // タイマーのID
-var interval_id ; 
+var interval_id ;
+
+let refMassage;
  
 window.onload = function(){     
   src_canvas = document.getElementById("SrcCanvas");
@@ -56,6 +59,7 @@ window.onload = function(){
   
   src_video = document.getElementById("SrcVideo");
   taMessage = document.getElementById("message");
+  refMassage = document.getElementById("reftext");
 
   src_canvas2 = document.getElementById("SrcCanvas2");
   src_ctx2 = src_canvas2.getContext("2d");    
@@ -78,9 +82,15 @@ function saisei(){
 	// ボタンが押されたときに実行されるイベント	
 		src_video.play(); 
     src_video2.play(); 
+    var reset_target = document.getElementById("message");
+    reset_target.value = '';
+    var reset_target2 = document.getElementById("message2");
+    reset_target2.value = '';
+
     a=0;
     b=0;
 	  c=0;
+    aa=0;
 	};
     
 // タイマーイベント
@@ -166,8 +176,8 @@ function onAddFile(event) {
                   src_ctx.strokeStyle = "#F0F8FF";
                   src_ctx.beginPath();
                   var size =320;
-                  console.log("+++"+src_video.videoWidth);
-                  console.log(src_video.width);
+                  //console.log("+++"+src_video.videoWidth);
+                  //console.log(src_video.width);
                   var aspectratio = src_video.videoWidth / src_video.width;
                   for(let i=0; i<17;i++){
                     poses[0].keypoints[i].x=Math.round(poses[0].keypoints[i].x/aspectratio);
@@ -316,6 +326,7 @@ function onAddFile(event) {
                   src_ctx.stroke();       
                   
                   
+                  
                  //if文
                  var x_bunkatu=src_video.width/4;
                   var y_bunkatu=src_video.height/4;
@@ -361,17 +372,37 @@ function onAddFile(event) {
                 if(a==0){
                   taMessage.value+="開始の姿勢✕\n";
                     taMessage.value+="両手を肩より上においてください\n";
+                    taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
+                    taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
+
+                  console.log("-----------------"+refMassage.innerHTML);
+                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000</a></p>';
+                  console.log(refMassage.innerHTML);
                     a=a+1;
                 }
                 if(b==0){
                   taMessage.value+="起き上がる姿勢✕\n";
                   taMessage.value+="手のひらを床にスタンプをつくようなイメージでマットへ着き、手に力を入れて起き上がりましょう\n";
                   b=b+1;
+                  taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
+
+                  console.log("-----------------"+refMassage.innerHTML);
+                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000</a></p>';
+                 
+                 refMassage.innerHTML+='<p>aaaaa</p>';
+                  console.log(refMassage.innerHTML);
                 }
 
                 if(c==0){
                   taMessage.value+="転がる順番✕\n";
                   taMessage.value+="お尻が上がっておらず勢いが足りていないので、体育座りから寝る姿勢を取りお尻を上げてみてください\n";
+                  taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
+
+                  console.log("-----------------"+refMassage.innerHTML);
+                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000</a></p>';
+                 
+                 refMassage.innerHTML+='<p>cccccc</p>';
+                  console.log(refMassage.innerHTML);
                    c=c+1;
                 }
               });
@@ -626,10 +657,10 @@ function onAddFile2(event) {
                  var x_bunkatu=src_video2.width/4;
                   var y_bunkatu=src_video2.height/4;
                   //まっすぐ転がる評価
-                  if((poses[0].keypoints[0].x)>2*x_bunkatu && (poses[0].keypoints[0].x)<3*x_bunkatu && a==0){
+                  if((poses[0].keypoints[0].x)>2*x_bunkatu && (poses[0].keypoints[0].x)<3*x_bunkatu && aa==0){
                     console.log('〇');
                     taMessage2.value+="まっすぐ転がれています\n";
-                    a=a+1;
+                    aa=aa+1;
                   }       
                    
                   }
@@ -637,9 +668,9 @@ function onAddFile2(event) {
            
             //アドバイス
             src_video2.addEventListener("ended", function() {
-              if(a==0){
+              if(aa==0){
                 taMessage2.value+="まっすぐ転がれていません\n";
-                    a=a+1;
+                    aa=aa+1;
               }
             });
 
@@ -697,6 +728,7 @@ function onAddFile2(event) {
         <div id="info" style="position: relative;height: 35%;">
             <div id="status" class="status" style="width: 30%;">評価</div>
             <textarea id="message" class="message" style="left: 30%;width: 90%;height: 20%"></textarea>
+            <div id="reftext" >aaa</div> 
         </div>
     </div>
 
