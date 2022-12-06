@@ -51,7 +51,8 @@ var taMessage2;
 // タイマーのID
 var interval_id ;
 
-let refMassage;
+var refMassage;
+var refMassage2;
  
 window.onload = function(){     
   src_canvas = document.getElementById("SrcCanvas");
@@ -60,6 +61,7 @@ window.onload = function(){
   src_video = document.getElementById("SrcVideo");
   taMessage = document.getElementById("message");
   refMassage = document.getElementById("reftext");
+  refMassage2 = document.getElementById("reftext2");
 
   src_canvas2 = document.getElementById("SrcCanvas2");
   src_ctx2 = src_canvas2.getContext("2d");    
@@ -86,6 +88,11 @@ function saisei(){
     reset_target.value = '';
     var reset_target2 = document.getElementById("message2");
     reset_target2.value = '';
+    var reset_target1=document.getElementById("reftext");
+    reset_target1.innerHTML = '';
+    //var reset_target3=document.getElementById("reftext2");
+    //reset_target3.value = '';
+    
 
     a=0;
     b=0;
@@ -334,7 +341,7 @@ function onAddFile(event) {
                   //右手首が肩より高いとき
                   if((poses[0].keypoints[10].y)<(poses[0].keypoints[6].y) && a==0 && b==0 && c==0){
                     console.log('〇');
-                    taMessage.value+="開始の姿勢〇\n";
+                    refMassage.innerHTML+="開始の姿勢〇<br />";
                     a=a+1;
                   } 
                   
@@ -344,7 +351,7 @@ function onAddFile(event) {
                  (poses[0].keypoints[9].y>poses[0].keypoints[5].y)&&b==0){
                     console.log('〇〇〇');
                     console.log((poses[0].keypoints[7].y)-(poses[0].keypoints[5].y));
-                    taMessage.value+="起き上がる姿勢〇\n";
+                    refMassage.innerHTML+="起き上がる姿勢〇<br />";
                     b=b+1;
                 } 
 
@@ -361,7 +368,7 @@ function onAddFile(event) {
                 }
                 if(jun==3 && c==0){
                     console.log('〇〇');
-                    taMessage.value+="転がる順番〇\n";
+                    refMassage.innerHTML+="転がる順番〇<br />";
                     c=c+1;
                 }
                 }
@@ -370,36 +377,29 @@ function onAddFile(event) {
               //アドバイス
               src_video.addEventListener("ended", function() {
                 if(a==0){
-                  taMessage.value+="開始の姿勢✕\n";
-                    taMessage.value+="両手を肩より上においてください\n";
-                    taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
-                    taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
-
-                  console.log("-----------------"+refMassage.innerHTML);
-                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000</a></p>';
-                  console.log(refMassage.innerHTML);
+                 // taMessage.value+="開始の姿勢✕\n";
+                    //taMessage.value+="両手を肩より上においてください\n";
+                    refMassage.innerHTML+="開始の姿勢✕<br />";
+                    refMassage.innerHTML+="両手を肩より上においてください<br />";
+                   refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">開始の姿勢のサイト</a></p>';
                     a=a+1;
                 }
                 if(b==0){
-                  taMessage.value+="起き上がる姿勢✕\n";
-                  taMessage.value+="手のひらを床にスタンプをつくようなイメージでマットへ着き、手に力を入れて起き上がりましょう\n";
+                  //taMessage.value+="起き上がる姿勢✕\n";
+                  //taMessage.value+="手のひらを床にスタンプをつくようなイメージでマットへ着き、手に力を入れて起き上がりましょう\n";
                   b=b+1;
-                  taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
+                  refMassage.innerHTML+="起き上がる姿勢✕<br />";
+                  refMassage.innerHTML+="手のひらを床にスタンプをつくようなイメージでマットへ着き、手に力を入れて起き上がりましょう<br />";
+                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">起き上がりができるサイト</a></p>';
 
-                  console.log("-----------------"+refMassage.innerHTML);
-                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000</a></p>';
-                 
-                  console.log(refMassage.innerHTML);
                 }
 
                 if(c==0){
-                  taMessage.value+="転がる順番✕\n";
-                  taMessage.value+="お尻が上がっておらず勢いが足りていないので、体育座りから寝る姿勢を取りお尻を上げてみてください\n";
-                  taMessage.value+="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000\n";
-
-                  console.log("-----------------"+refMassage.innerHTML);
-                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000</a></p>';
-                  console.log(refMassage.innerHTML);
+                  //taMessage.value+="転がる順番✕\n";
+                  //taMessage.value+="お尻が上がっておらず勢いが足りていないので、体育座りから寝る姿勢を取りお尻を上げてみてください\n";
+                  refMassage.innerHTML+="転がる順番✕<br />";
+                  refMassage.innerHTML+="お尻が上がっておらず勢いが足りていないので、体育座りから寝る姿勢を取りお尻を上げてみてください<br />";
+                  refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">正しく転がれるサイト</a></p>';
                    c=c+1;
                 }
               });
@@ -656,7 +656,7 @@ function onAddFile2(event) {
                   //まっすぐ転がる評価
                   if((poses[0].keypoints[0].x)>2*x_bunkatu && (poses[0].keypoints[0].x)<3*x_bunkatu && aa==0){
                     console.log('〇');
-                    taMessage2.value+="まっすぐ転がれています\n";
+                    refMassage2.innerHTML+="まっすぐ転がれています<br />";
                     aa=aa+1;
                   }       
                    
@@ -666,7 +666,8 @@ function onAddFile2(event) {
             //アドバイス
             src_video2.addEventListener("ended", function() {
               if(aa==0){
-                taMessage2.value+="まっすぐ転がれていません\n";
+                refMassage2.innerHTML+="まっすぐ転がれていません<br />";
+                refMassage.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">起き上がりができるサイト</a></p>';
                     aa=aa+1;
               }
             });
@@ -717,15 +718,15 @@ function onAddFile2(event) {
     <div id="child1">横
       <p></p>
         <input type="file" id="inputfile" accept="video/mp4,video/webm,video/ogg" onchange="onAddFile(event);"> 
-        <h4>videoタグで再生</h4>       
-        <video id="SrcVideo"></video>
+        <h4 hidden>videoタグで再生</h4>       
+        <video hidden id="SrcVideo"></video>
          <h4>canvasで再生</h4> 
         <canvas id="SrcCanvas"></canvas>
         <div class></div>
         <div id="info" style="position: relative;height: 35%;">
             <div id="status" class="status" style="width: 30%;">評価</div>
-            <textarea id="message" class="message" style="left: 30%;width: 90%;height: 20%"></textarea>
-            <div id="reftext" >aaa</div> 
+            <textarea hidden id="message" class="message" style="left: 30%;width: 90%;height: 20%"></textarea>
+            <div id="reftext" ></div> 
         </div>
     </div>
 
@@ -733,13 +734,14 @@ function onAddFile2(event) {
     <div id="child2">正面
       <p></p>
         <input type="file" id="inputfile2" accept="video/mp4,video/webm,video/ogg" onchange="onAddFile2(event);">   
-        <h4>videoタグで再生</h4>     
-        <video id="SrcVideo2"></video>
+        <h4 hidden>videoタグで再生</h4>     
+        <video hidden id="SrcVideo2"></video>
         <h4>canvasで再生</h4> 
         <canvas id="SrcCanvas2"></canvas>
         <div id="info" style="position: relative;height: 35%;">
             <div id="status" class="status" style="width: 30%;">評価</div>
-            <textarea id="message2" class="message2" style="left: 30%;width: 90%;height: 20%"></textarea>
+            <textarea hidden id="message2" class="message2" style="left: 30%;width: 90%;height: 20%"></textarea>
+            <div id="reftext2" ></div>
         </div>
     
     </div>
