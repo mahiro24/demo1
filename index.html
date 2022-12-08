@@ -651,9 +651,9 @@ function onAddFile2(event) {
                  var x_bunkatu=src_video2.width/4;
                   var y_bunkatu=src_video2.height/4;
                   //まっすぐ転がる評価
-                  if((poses[0].keypoints[0].x)>2*x_bunkatu && (poses[0].keypoints[0].x)<3*x_bunkatu && aa==0){
-                    console.log('〇');
-                    refMassage2.innerHTML+="まっすぐ転がれています<br />";
+                  if((poses[0].keypoints[0].x)<2*x_bunkatu || (poses[0].keypoints[0].x)>3*x_bunkatu && aa==0){
+                    refMassage2.innerHTML+="まっすぐ転がれていません<br />";
+                    refMassage2.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">まっすぐ転がれるサイト</a></p>';
                     aa=aa+1;
                   }       
                    
@@ -663,8 +663,8 @@ function onAddFile2(event) {
             //アドバイス
             src_video2.addEventListener("ended", function() {
               if(aa==0){
-                refMassage2.innerHTML+="まっすぐ転がれていません<br />";
-                refMassage2.innerHTML+='<p><a href="https://www2.nhk.or.jp/school/movie/clip.cgi?das_id=D0005360031_00000">まっすぐ転がれるサイト</a></p>';
+                    console.log('〇');
+                    refMassage2.innerHTML+="まっすぐ転がれています<br />";
                     aa=aa+1;
               }
             });
